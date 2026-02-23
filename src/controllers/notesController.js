@@ -3,7 +3,7 @@ import { Note } from "../models/note.js";
 
 export const getAllNotes = async (req, res) => {
   const note = await Note.find();
-  res.status(200).json({ note });
+  res.status(200).json(note);
 };
 
 export const getNoteById = async (req, res) => {
@@ -11,10 +11,10 @@ export const getNoteById = async (req, res) => {
   const note = await Note.findById(noteId);
 
   if (!note) {
-    throw new createHttpError(404, "Notes Not Found");
+    throw createHttpError(404, "Notes Not Found");
   }
 
-  res.status(200).json({ note });
+  res.status(200).json(note);
 };
 
 export const createNote = async (req, res) => {

@@ -26,10 +26,10 @@ const notesSchema = new Schema(
 );
 
 notesSchema.index(
-  { title: 'text', content: 'text', tag: 'text' },
+  { title: 'text', content: 'text' },
   {
     name: 'NotesTextIndex',
-    weights: { title: 10, content: 10, tag: 10 },
+    weights: { title: 10, content: 10 },
     default_language: 'english'
   }
 );

@@ -8,6 +8,7 @@ import { logger } from './middleware/logger.js';
 
 import { connectMongoDB } from './db/connectMongoDB.js';
 import router from './routes/notesRoutes.js';
+import { errors } from 'celebrate';
 
 const PORT = process.env.PORT ?? 3000;
 const app = express();
@@ -21,6 +22,9 @@ app.use(router);
 
 // notFound middleware
 app.use(notFoundHandler);
+
+// validations errors
+app.use(errors());
 
 // error middleware
 app.use(errorHandler);

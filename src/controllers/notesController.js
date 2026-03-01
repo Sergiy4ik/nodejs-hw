@@ -1,6 +1,5 @@
 import createHttpError from "http-errors";
 import { Note } from "../models/note.js";
-import { TAGS } from "../constants/tags.js";
 
 export const getAllNotes = async (req, res) => {
   const { page = 1, perPage = 10, search, tag } = req.query;
@@ -14,7 +13,7 @@ export const getAllNotes = async (req, res) => {
   }
 
   if (tag) {
-    noteQuery.where({ tag: { $in: TAGS } });
+    noteQuery.where("tag", tag);
   }
 
   const [totalNotes, notes] = await Promise.all([

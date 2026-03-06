@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import 'dotenv/config';
 
 import { notFoundHandler } from './middleware/notFoundHandler.js';
@@ -7,8 +8,10 @@ import { errorHandler } from './middleware/errorHandler.js';
 import { logger } from './middleware/logger.js';
 
 import { connectMongoDB } from './db/connectMongoDB.js';
-import router from './routes/notesRoutes.js';
 import { errors } from 'celebrate';
+
+import notesRouter from './routes/notesRoutes.js';
+import authRouter from './routes/authRoutes.js';
 
 const PORT = process.env.PORT ?? 3000;
 const app = express();
@@ -16,9 +19,11 @@ const app = express();
 app.use(logger);
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
 
 // all middleware
-app.use(router);
+app.use(notesRouter);
+app.use(authRouter);
 
 // notFound middleware
 app.use(notFoundHandler);

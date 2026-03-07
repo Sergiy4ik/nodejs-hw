@@ -6,7 +6,7 @@ export const getAllNotes = async (req, res) => {
 
   const skip = (page - 1) * perPage;
 
-  const noteQuery = await Note.find({ userId: req.user._id });
+  let noteQuery = Note.find({ userId: req.user._id });
 
   if (search) {
     noteQuery.where({ $text: { $search: search } });
@@ -34,7 +34,7 @@ export const getAllNotes = async (req, res) => {
 
 export const getNoteById = async (req, res) => {
   const { noteId } = req.params;
-  const note = await Note.findById({
+  const note = await Note.findOne({
     _id: noteId,
     userId: req.user._id
   });
